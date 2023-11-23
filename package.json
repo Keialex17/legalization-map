@@ -78,6 +78,7 @@
 		"react-dom": "^16.8.4",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.3.0",
+		"react-simple-maps": "^3.0.0",
 		"react-svg-worldmap": "^2.0.0-alpha.16"
 	}
 }
