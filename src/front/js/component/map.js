@@ -6,43 +6,40 @@ import * as d3 from 'd3';
 const Map = () =>{
 
   const [data, setData] = useState({});
+  const [hoveredCountry, setHoveredCountry] = useState(null);
 
   useEffect(() => {
     // Simula datos, reemplaza esto con tu lógica para obtener datos
     const simulatedData = {
-      Fiji: 50,
-      Tanzania: 30,
-      'W. Sahara': 20,
-      Canada: 75,
-      'United States of America': 90,
+      Fiji: 'si',
+      Tanzania: 'no',
+      'W. Sahara': 'no',
+      Canada: 'si',
+      'United States of America': 'no',
       // ... Otros países con sus valores
     };
 
     setData(simulatedData);
   }, []);
 
-  // Función para escalar el color según el valor
-  const colorScale = d3.scaleSequential(d3.interpolateBlues).domain([0, 100]);
-
   // Función para asignar colores específicos a países resaltados
   const getColor = (country) => {
-    const highlightedCountries = ['Fiji', 'Tanzania', 'W. Sahara', 'Canada', 'United States of America'];
-    if (highlightedCountries.includes(country)) {
-      const colorMap = {
-        Fiji: 'red',
-        Tanzania: 'green',
-        'W. Sahara': 'blue',
-        Canada: 'orange',
-        'United States of America': 'purple',
-      };
-      return colorMap[country];
-    } else {
-      return colorScale(data[country]) || '#ddd';
-    }
+    const colorMap = {
+      si: 'green',
+      no: 'red',
+    };
+
+    return colorMap[data[country]] || '#ddd';
   };
 
   return (
     <div>
+      {hoveredCountry && (
+        <div>
+          <p>{`Country: ${hoveredCountry}`}</p>
+          <p>{`Value: ${data[hoveredCountry]}`}</p>
+        </div>
+      )}
       <ComposableMap
         projectionConfig={{
           rotate: [-10, 0, 0],
@@ -58,15 +55,28 @@ const Map = () =>{
 
                 return (
                   <Geography
-                    key={geo.id}
+                    key={geo.rsmKey}
                     geography={geo}
                     fill={color}
                     onMouseEnter={() => {
-                      console.log(`Country: ${country}, Value: ${data[country]}`);
+                      setHoveredCountry(country);
+                      console.log(`Mouse enter - Country: ${country}, Value: ${data[country]}`);
+                    }}
+                    onMouseLeave={() => {
+                      setHoveredCountry(null);
+                      console.log('Mouse leave');
                     }}
                     style={{
+                      default: {
+                        fill: color,
+                        outline: 'none',
+                      },
                       hover: {
-                        fill: '#F53',
+                        fill: d3.color(color).darker(0.5), // Oscurecer el color al pasar el cursor
+                        outline: 'none',
+                      },
+                      pressed: {
+                        fill: color,
                         outline: 'none',
                       },
                     }}
