@@ -11,12 +11,12 @@ const Map = () =>{
   useEffect(() => {
     // Simula datos, reemplaza esto con tu lógica para obtener datos
     const simulatedData = {
-      Fiji: 'si',
-      Tanzania: 'no',
-      'W. Sahara': 'no',
-      Canada: 'si',
-      'United States of America': 'no',
-      // ... Otros países con sus valores
+      Fiji: { value: 'si', population: 900000 },
+      Tanzania: { value: 'no', population: 59000000 },
+      'W. Sahara': { value: 'no', population: 567000 },
+      Canada: { value: 'si', population: 38000000 },
+      'United States of America': { value: 'no', population: 331000000 },
+      // ... Otros países con sus valores y población
     };
 
     setData(simulatedData);
@@ -29,7 +29,7 @@ const Map = () =>{
       no: 'red',
     };
 
-    return colorMap[data[country]] || '#ddd';
+    return colorMap[data[country]?.value] || '#ddd';
   };
 
   return (
@@ -37,7 +37,8 @@ const Map = () =>{
       {hoveredCountry && (
         <div>
           <p>{`Country: ${hoveredCountry}`}</p>
-          <p>{`Value: ${data[hoveredCountry]}`}</p>
+          <p>{`Value: ${data[hoveredCountry]?.value}`}</p>
+          <p>{`Population: ${data[hoveredCountry]?.population}`}</p>
         </div>
       )}
       <ComposableMap
@@ -52,6 +53,7 @@ const Map = () =>{
               geographies.map((geo) => {
                 const country = geo.properties.name;
                 const color = getColor(country);
+                const isHovered = hoveredCountry === country;
 
                 return (
                   <Geography
@@ -60,11 +62,9 @@ const Map = () =>{
                     fill={color}
                     onMouseEnter={() => {
                       setHoveredCountry(country);
-                      console.log(`Mouse enter - Country: ${country}, Value: ${data[country]}`);
                     }}
                     onMouseLeave={() => {
                       setHoveredCountry(null);
-                      console.log('Mouse leave');
                     }}
                     style={{
                       default: {
