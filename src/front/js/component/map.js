@@ -5,16 +5,16 @@ import * as d3 from 'd3';
 
 const Map = () =>{
 
-  const [data, setData] = useState({}); // Puedes reemplazar esto con tus propios datos
+  const [data, setData] = useState({});
 
   useEffect(() => {
     // Simula datos, reemplaza esto con tu lógica para obtener datos
     const simulatedData = {
-      USA: 50,
-      Canada: 30,
-      Mexico: 20,
-      Brazil: 75,
-      India: 90,
+      Fiji: 50,
+      Tanzania: 30,
+      'W. Sahara': 20,
+      Canada: 75,
+      'United States of America': 90,
       // ... Otros países con sus valores
     };
 
@@ -26,15 +26,14 @@ const Map = () =>{
 
   // Función para asignar colores específicos a países resaltados
   const getColor = (country) => {
-    const highlightedCountries = ['USA', 'Canada', 'Mexico', 'Brazil', 'India'];
+    const highlightedCountries = ['Fiji', 'Tanzania', 'W. Sahara', 'Canada', 'United States of America'];
     if (highlightedCountries.includes(country)) {
-      // Cambiar estos colores según tus preferencias
       const colorMap = {
-        USA: 'red',
-        Canada: 'green',
-        Mexico: 'blue',
-        Brazil: 'orange',
-        India: 'purple',
+        Fiji: 'red',
+        Tanzania: 'green',
+        'W. Sahara': 'blue',
+        Canada: 'orange',
+        'United States of America': 'purple',
       };
       return colorMap[country];
     } else {
@@ -54,13 +53,12 @@ const Map = () =>{
           <Geographies geography="https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json">
             {({ geographies }) =>
               geographies.map((geo) => {
-                const country = geo.properties.NAME;
-                console.log(country)
+                const country = geo.properties.name;
                 const color = getColor(country);
 
                 return (
                   <Geography
-                    key={geo.rsmKey}
+                    key={geo.id}
                     geography={geo}
                     fill={color}
                     onMouseEnter={() => {
