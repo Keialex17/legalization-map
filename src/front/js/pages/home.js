@@ -9,18 +9,18 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="text-center mt-5">
+		<div className="text-center" id="fondo">
+			<div className="mt-5 p-2">
 			<h1>Mapa de legalizacion mundial del Cannabis!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
 			</div>
-			<p>
+			<div className="container">
 				<Map/>
-			</p>
+			</div>
 				<Heading/>
 		</div>
 	);
 };
+
+			{/* <div className="alert alert-info">
+				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
+			</div> */}
