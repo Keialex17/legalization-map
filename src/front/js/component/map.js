@@ -73,9 +73,9 @@ const Map = () =>{
         <div style={{ top: `${cursorPosition.y}px`, left: `${cursorPosition.x}px`, color: 'white', position: 'absolute' }}>
           <ul className="list-group">
   <li className="list-group-item">Status</li>
-  <li className="list-group-item list-group-item-success">{`Country: ${hoveredCountry}`}</li>
-  <li className="list-group-item list-group-item-success">{`Value: ${data[hoveredCountry]?.value}`}</li>
-  <li className="list-group-item list-group-item-success">{`Usos: ${data[hoveredCountry]?.usos}`}</li>
+  <li className="list-group-item list-group-item-success"><i className="fa-solid fa-globe"></i>{` Country: ${hoveredCountry}`}</li>
+  <li className="list-group-item list-group-item-success"><i className="fas fa-seedling"></i>{` Value: ${data[hoveredCountry]?.value}`}</li>
+  <li className="list-group-item list-group-item-success"><i className="fas fa-capsules"></i>{` Usos: ${data[hoveredCountry]?.usos}`}</li>
 </ul>
         </div>
       )}
