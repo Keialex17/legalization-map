@@ -58,28 +58,44 @@ const Map = () =>{
     setCursorPosition({ x: event.clientX, y: event.clientY });
   };
 
+
   return (
-    <div onMouseMove={handleMouseMove}>
+    <div
+      onMouseMove={handleMouseMove}
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100vh',
+        overflow: 'hidden',
+      }}
+    >
       {hoveredCountry && (
-        <div style={{ top: `${cursorPosition.y}px`, left: `${cursorPosition.x}px`, color: 'white' }}>
-          <p>{`Country: ${hoveredCountry}`}</p>
-          <p>{`Value: ${data[hoveredCountry]?.value}`}</p>
-          <p>{`Usos: ${data[hoveredCountry]?.usos}`}</p>
+        <div style={{ top: `${cursorPosition.y}px`, left: `${cursorPosition.x}px`, color: 'white', position: 'absolute' }}>
+          <ul className="list-group">
+  <li className="list-group-item">Status</li>
+  <li className="list-group-item list-group-item-success">{`Country: ${hoveredCountry}`}</li>
+  <li className="list-group-item list-group-item-success">{`Value: ${data[hoveredCountry]?.value}`}</li>
+  <li className="list-group-item list-group-item-success">{`Usos: ${data[hoveredCountry]?.usos}`}</li>
+</ul>
         </div>
       )}
-      <ComposableMap
-        projectionConfig={{
-          rotate: [-10, 0, 0],
-          scale: 147,
-        }}
-      >
-        <ZoomableGroup center={[0, 20]}>
+      <div style={{ width: '100%', height: '100%' }}>
+        <ComposableMap
+          projectionConfig={{
+            rotate: [5, 15, 0],
+            scale: 230, // Ajusta según tus necesidades
+          }}
+          center={[0, 0]} // Ajusta según tus necesidades
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+        >
           <Geographies geography="https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json">
             {({ geographies }) =>
               geographies.map((geo) => {
                 const country = geo.properties.name;
                 const color = getColor(country);
-                const isHovered = hoveredCountry === country;
 
                 return (
                   <Geography
@@ -98,7 +114,7 @@ const Map = () =>{
                         outline: 'none',
                       },
                       hover: {
-                        fill: d3.color(color).darker(0.5), // Oscurecer el color al pasar el cursor
+                        fill: d3.color(color).darker(0.5),
                         outline: 'none',
                       },
                       pressed: {
@@ -111,9 +127,11 @@ const Map = () =>{
               })
             }
           </Geographies>
-        </ZoomableGroup>
-      </ComposableMap>
+        </ComposableMap>
+        
+      </div>
     </div>
+    
     
     )
   }
