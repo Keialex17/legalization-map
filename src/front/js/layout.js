@@ -10,7 +10,6 @@ import injectContext from "./store/appContext";
 import CannabisCountry from "./pages/cannabisCountry";
 
 import { Navbar } from "./component/navbar";
-import { Footer } from "./component/footer";
 
 //create your first component
 const Layout = () => {
@@ -32,7 +31,6 @@ const Layout = () => {
                         <Route element={<h1>Not found!</h1>} />
                         <Route element={<CannabisCountry/>} path="/cannabisCountry" />
                     </Routes>
-                    <Footer />
                 </ScrollToTop>
             </BrowserRouter>
         </div>

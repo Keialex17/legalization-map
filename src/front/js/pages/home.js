@@ -1,28 +1,19 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import Map from "../component/map";
-import Heading from "../component/heading";
-import { Link } from "react-router-dom";
+import Leyenda from "../component/leyenda";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="text-center" id="fondo">
-			<div className="mt-5 p-2">
-			<h1>Mapa de legalizacion mundial del Cannabis!!</h1>
-			</div>
-			<div className="container">
+		<div className="container-fluid text-center" id="fondo">
+						<h1>Mapa de legalizacion mundial del Cannabis!!</h1>
+			<div className="mt-5">
 				<Map/>
 			</div>
-			<button>
-				<Link to="/cannabisCountry">
-					Cannabis
-				</Link>
-			</button>
-				<Heading/>
+			<Leyenda/>
 		</div>
 	);
 };
