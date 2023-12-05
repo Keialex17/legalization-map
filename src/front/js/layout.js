@@ -6,6 +6,7 @@ import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
+import { Worldmap } from "./pages/worldmap" 
 import injectContext from "./store/appContext";
 import CannabisCountry from "./pages/cannabisCountry";
 
@@ -30,6 +31,7 @@ const Layout = () => {
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                         <Route element={<CannabisCountry/>} path="/cannabisCountry" />
+                        <Route element={<Worldmap/>} path="/worldMap"/>
                     </Routes>
                 </ScrollToTop>
             </BrowserRouter>
