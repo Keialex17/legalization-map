@@ -4,6 +4,7 @@ import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import Map from "../component/map";
 import Heading from "../component/heading";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -16,6 +17,11 @@ export const Home = () => {
 			<div className="container">
 				<Map/>
 			</div>
+			<button>
+				<Link to="/cannabisCountry">
+					Cannabis
+				</Link>
+			</button>
 				<Heading/>
 		</div>
 	);
