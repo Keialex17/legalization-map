@@ -1,37 +1,146 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import WorldMap from "react-svg-worldmap"
+import { ComposableMap, Geographies, Geography, ZoomableGroup } from 'react-simple-maps';
+import * as d3 from 'd3';
+import "../component/map.css"
 
 const Map = () =>{
 
-    const data = [
-        { country: "cn", value: "si" }, // china
-        { country: "in", value: "no" }, // india
-        { country: "us", value: "si" }, // united states
-        { country: "id", value: "no se" }, // indonesia
-        { country: "pk", value: "si" }, // pakistan
-        { country: "br", value: "no" }, // brazil
-        { country: "ng", value: "no" }, // nigeria
-        { country: "bd", value: "si" }, // bangladesh
-        { country: "ru", value: "no" }, // russia
-        { country: "mx", value: "no se" }, // mexico
-        { country: "ve", value: "no" }, // venezuela
-        { country: "ar", value: "si" }, // venezuela
-      ];
+  const [data, setData] = useState({});
+  const [hoveredCountry, setHoveredCountry] = useState(null);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 
-    return (
-        <>
-        <div className="container">
 
-        <WorldMap
-   color="green"
-   title="Top 10 Populous Countries"
-   value-suffix="legal"
-   size="xxl"
-   data={data}
- /> 
-         </div>
-        </>
+  useEffect(() => {
+    // Simula datos, reemplaza esto con tu lógica para obtener datos
+    const simulatedData = {
+      Argentina: { value: 'resi', usos: 'Medicos y Recreacional' },
+      Belgium: { value: 'si', usos: 'Recreacional' },
+      Canada: { value: 'resi', usos: 'Medicos y Recreacional' },
+      Chile: { value: 'resi', usos: 'Medicos y Recreacional' },
+      Colombia: { value: 'resi', usos: 'Medicos y Recreacional' },
+      Estonia: { value: 'si', usos: 'Recreacional' },
+      Fiji: { value: 'si', usos: 'no se' },
+      Germany: { value: 'si', usos: 'Recreacional' },
+      Malta: { value: 'si', usos: 'Recreacional' }, //No esta en el mapa
+      Mexico: { value: 'resi', usos: 'Medicos y recreacionales' },
+      Moldova: { value: 'si', usos: 'Recreacional' },
+      Netherlands: { value: 'si', usos: 'Recreacional' },
+      Paraguay: { value: 'resi', usos: 'Medicos y Recreacional' },
+      Peru: { value: 'resi', usos: 'Medicos y Recreacional' },
+      Portugal: { value: 'si', usos: 'Recreacional' },
+      Czechia: { value: 'si', usos: 'Recreacional' },
+      Spain: { value: 'resi', usos: 'Medicos y recreacionales' },
+      Switzerland: { value: 'si', usos: 'Recreacional' },
+      Tanzania: { value: 'no', usos: 'no se' },
+      'United States of America': { value: 'resi', usos: 'Medicos y recreacionales' },
+      Uruguay: { value: 'resi', usos: 'Medicos y recreacionales' },
+      'W. Sahara': { value: 'no', usos: 'no se' },
+      // ... Otros países con sus valores
+    };
+
+    setData(simulatedData);
+  }, []);
+
+  // Función para asignar colores específicos a países resaltados
+  const getColor = (country) => {
+    const colorMap = {
+      si: 'purple',
+      resi: 'green',
+      no: 'red',
+    };
+
+    return colorMap[data[country]?.value] || '#ddd';
+  };
+
+  const handleMouseMove = (event) => {
+    // Actualiza la posición del cursor en el estado
+    setCursorPosition({ x: event.clientX, y: event.clientY });
+  };
+
+
+  return (
+    <div
+      onMouseMove={handleMouseMove}
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100vh',
+        overflow: 'hidden',
+      }}
+    >
+      {hoveredCountry && (
+        <div style={{ top: `${cursorPosition.y}px`, left: `${cursorPosition.x}px`, color: 'white', position: 'absolute' }}>
+          <ul className="list-group">
+  <li className="list-group-item">Status</li>
+  <li className="list-group-item list-group-item-success"><i className="fa-solid fa-globe"></i>{` Country: ${hoveredCountry}`}</li>
+  <li className="list-group-item list-group-item-success"><i className="fas fa-seedling"></i>{` Value: ${data[hoveredCountry]?.value}`}</li>
+  <li className="list-group-item list-group-item-success"><i className="fas fa-capsules"></i>{` Usos: ${data[hoveredCountry]?.usos}`}</li>
+</ul>
+        </div>
+      )}
+      <div style={{ width: '100%', height: '100%' }}>
+        <ComposableMap
+          projectionConfig={{
+            rotate: [5, 15, 0],
+            scale: 230, // Ajusta según tus necesidades
+          }}
+          center={[0, 0]} // Ajusta según tus necesidades
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          <Geographies geography="https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json">
+            {({ geographies }) =>
+              geographies.map((geo) => {
+                const country = geo.properties.name;
+                const color = getColor(country);
+
+                return (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
+                    fill={color}
+                    onMouseEnter={() => {
+                      setHoveredCountry(country);
+                    }}
+                    onMouseLeave={() => {
+                      setHoveredCountry(null);
+                    }}
+                    style={{
+                      default: {
+                        fill: color,
+                        outline: 'none',
+                      },
+                      hover: {
+                        fill: d3.color(color).darker(0.5),
+                        outline: 'none',
+                      },
+                      pressed: {
+                        fill: color,
+                        outline: 'none',
+                      },
+                    }}
+                  />
+                );
+              })
+            }
+          </Geographies>
+        </ComposableMap>
+        
+      </div>
+    </div>
+    
+    
     )
-}
-
+  }
+  
+  {/* <WorldMap
+  color={(index) => getColor(data[index].value)}
+  title="Top 10 Populous Countries"
+  value-suffix="people"
+  size="xxl"
+  data={data}
+/> */}
 export default Map
