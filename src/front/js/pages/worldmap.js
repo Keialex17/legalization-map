@@ -14,4 +14,4 @@ const Worldmap = () =>{
     )
 }
 
-export default WorldMap
+export default Worldmap
