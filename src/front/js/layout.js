@@ -6,7 +6,7 @@ import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
-import { Worldmap } from "./pages/worldmap" 
+import  Worldmap  from "./pages/worldmap"
 import injectContext from "./store/appContext";
 import CannabisCountry from "./pages/cannabisCountry";
 

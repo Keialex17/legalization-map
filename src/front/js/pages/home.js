@@ -1,13 +1,21 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import WorldMap from "react-svg-worldmap";
+import Worldmap from "./worldmap";
+import { Link } from "react-router-dom";
+import  Main  from "../component/main.js"
+import  Tarjeta  from "../component/tarjeta.js"
+
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<WorldMap/>
+		<div>
+
+			<Main />
+			<Tarjeta />
+		</div>
 	);
 };
 
