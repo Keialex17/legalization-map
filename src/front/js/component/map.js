@@ -14,28 +14,51 @@ const Map = () =>{
   useEffect(() => {
     // Simula datos, reemplaza esto con tu lógica para obtener datos
     const simulatedData = {
-      Argentina: { value: 'resi', usos: 'Medicos y Recreacional' },
-      Belgium: { value: 'si', usos: 'Recreacional' },
-      Canada: { value: 'resi', usos: 'Medicos y Recreacional' },
-      Chile: { value: 'resi', usos: 'Medicos y Recreacional' },
-      Colombia: { value: 'resi', usos: 'Medicos y Recreacional' },
-      Estonia: { value: 'si', usos: 'Recreacional' },
-      Fiji: { value: 'si', usos: 'no se' },
-      Germany: { value: 'si', usos: 'Recreacional' },
-      Malta: { value: 'si', usos: 'Recreacional' }, //No esta en el mapa
-      Mexico: { value: 'resi', usos: 'Medicos y recreacionales' },
-      Moldova: { value: 'si', usos: 'Recreacional' },
-      Netherlands: { value: 'si', usos: 'Recreacional' },
-      Paraguay: { value: 'resi', usos: 'Medicos y Recreacional' },
-      Peru: { value: 'resi', usos: 'Medicos y Recreacional' },
-      Portugal: { value: 'si', usos: 'Recreacional' },
-      Czechia: { value: 'si', usos: 'Recreacional' },
-      Spain: { value: 'resi', usos: 'Medicos y recreacionales' },
-      Switzerland: { value: 'si', usos: 'Recreacional' },
-      Tanzania: { value: 'no', usos: 'no se' },
-      'United States of America': { value: 'resi', usos: 'Medicos y recreacionales' },
-      Uruguay: { value: 'resi', usos: 'Medicos y recreacionales' },
-      'W. Sahara': { value: 'no', usos: 'no se' },
+      Argentina: { value: 'Parcial', usos: 'Medicos y Recreacional' },
+      Bahamas: { value: 'Parcial', usos: 'Medicos' },
+      Belgium: { value: 'Legal', usos: 'Recreacional' },
+      Belize: { value: 'Ilegal', usos: 'Ninguno' },
+      Brazil: { value: 'Ilegal', usos: 'Ninguno' },
+      Bolivia: { value: 'Ilegal', usos: 'Ninguno' },
+      Canada: { value: 'Legal', usos: 'Medicos y Recreacional' },
+      Chile: { value: 'Legal', usos: 'Medicos y Recreacional' },
+      Colombia: { value: 'Legal', usos: 'Medicos y Recreacional' },
+      'Costa Rica': { value: 'Parcial', usos: 'Medicos y Recreacional' },
+      Cuba: { value: 'Ilegal', usos: 'Ninguno' },
+      Czechia: { value: 'Legal', usos: 'Recreacional' },
+      'Dominican Rep.': { value: 'Ilegal', usos: 'Ninguno' },
+      Ecuador: { value: 'Legal', usos: 'Recreacional' },
+      'El Salvador' : { value: 'Ilegal', usos: 'Ninguno' },
+      Estonia: { value: 'Legal', usos: 'Recreacional' },
+      Fiji: { value: 'Ilegal', usos: 'Ninguno' },
+      France: { value: 'Ilegal', usos: 'Ninguno' },
+      Germany: { value: 'Legal', usos: 'Recreacional' },
+      Greenland: { value: 'Ilegal', usos: 'Ninguno' },
+      Guatemala: { value: 'Ilegal', usos: 'Ninguno' },
+      Guyana: { value: 'Ilegal', usos: 'Ninguno' },
+      Haiti: { value: 'Ilegal', usos: 'Ninguno' },
+      Honduras: { value: 'Ilegal', usos: 'Ninguno' },
+      Jamaica: { value: 'Legal', usos: 'Medicos y recreacional' },
+      Malta: { value: 'Legal', usos: 'Recreacional' }, //No esta en el mapa
+      Mexico: { value: 'Legal', usos: 'Medicos y recreacional' },
+      Moldova: { value: 'Legal', usos: 'Recreacional' },
+      Nicaragua: { value: 'Ilegal', usos: 'Ninguno' },
+      Netherlands: { value: 'Parcial', usos: 'Recreacional' },
+      Panama : { value: 'Parcial', usos: 'Medicos' },
+      Paraguay: { value: 'Parcial', usos: 'Medicos y Recreacional' },
+      Peru: { value: 'Parcial', usos: 'Medicos y Recreacional' },
+      Portugal: { value: 'Legal', usos: 'Recreacional' },
+      'Puerto Rico': { value: 'Parcial', usos: 'Medicos' },
+      Russia: { value: 'Ilegal', usos: 'Ninguno' },
+      Spain: { value: 'Legal', usos: 'Medicos y recreacionales' },
+      Suriname: { value: 'Ilegal', usos: 'Ninguno' },
+      Switzerland: { value: 'Legal', usos: 'Recreacional' },
+      Tanzania: { value: 'Ilegal', usos: 'Ninguno' },
+      'Trinidad and Tobago': { value: 'Ilegal', usos: 'Ninguno' },
+      'United States of America': { value: 'Legal', usos: 'Medicos y recreacional' },
+      Uruguay: { value: 'Legal', usos: 'Medicos y recreacional' },
+      Venezuela: { value: 'Ilegal', usos: 'Ninguno' },
+      'W. Sahara': { value: 'Ilegal', usos: 'Ninguno' },
       // ... Otros países con sus valores
     };
 
@@ -45,9 +68,9 @@ const Map = () =>{
   // Función para asignar colores específicos a países resaltados
   const getColor = (country) => {
     const colorMap = {
-      si: 'purple',
-      resi: 'green',
-      no: 'red',
+      Legal: 'green',
+      Parcial: 'yellow',
+      Ilegal: 'red'
     };
 
     return colorMap[data[country]?.value] || '#ddd';

@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import WorldMap from "react-svg-worldmap";
+import Worldmap from "./worldmap";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<WorldMap/>
+		<Worldmap/>
 	);
 };
 
