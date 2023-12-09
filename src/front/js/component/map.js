@@ -268,7 +268,6 @@ const Map = () =>{
             }
           </Geographies>
         </ComposableMap>
-        
       </div>
     </div>
     
