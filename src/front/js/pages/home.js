@@ -5,15 +5,16 @@ import Worldmap from "./worldmap";
 import { Link } from "react-router-dom";
 import  Main  from "../component/main.js"
 import  Tarjeta  from "../component/tarjeta.js"
+import marii from "../../img/mata.jpg"
 
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div>
+		<div style={{ backgroundImage: `url(${marii})` }} className="container-fluid">
 
-			<Main />
+			{/* <Main /> */}
 			<Tarjeta />
 		</div>
 	);
