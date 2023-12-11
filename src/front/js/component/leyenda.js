@@ -20,9 +20,18 @@ const Leyenda = () =>{
       // </div>
 
       
-      <div className="col-3 d-flex justify-content-around">
+      <div className="col-3 d-flex justify-content-around"
+      style={{
+        position: "fixed",
+        top: "0",
+        right: "0",
+        zIndex: "1000",
+        background: "rgba(255, 255, 255, 0.8)",
+        padding: "10px",
+        borderRadius: "5px"
+      }}>
         <span className="btn btn-success">Legal</span>
-        <span className="btn btn-warning">Residencial</span>
+        <span className="btn btn-warning">Parcial</span>
         <span className="btn btn-danger">Ilegal</span>
       </div>
 

@@ -9,6 +9,7 @@ const Map = () =>{
   const [data, setData] = useState({});
   const [hoveredCountry, setHoveredCountry] = useState(null);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [showLegendScroll, setShowLegendScroll] = useState(false);
 
 
   useEffect(() => {
@@ -17,6 +18,7 @@ const Map = () =>{
       Albania: { value: 'Ilegal', usos: 'Ninguno' },
       Algeria: { value: 'Ilegal', usos: 'Ninguno' },
       Angola: { value: 'Ilegal', usos: 'Ninguno' },
+      Antarctica: { value: 'Parcial', usos: 'Medicos y Recreacional' },
       Argentina: { value: 'Parcial', usos: 'Medicos y Recreacional' },
       Armenia: { value: 'Ilegal', usos: 'Ninguno' },
       Austria: { value: 'Legal', usos: 'Medicos y Recreacional' },
@@ -61,6 +63,7 @@ const Map = () =>{
       'Falkland Is.': { value: 'Ilegal', usos: 'Ninguno' },
       Fiji: { value: 'Ilegal', usos: 'Ninguno' },
       Finland: { value: 'Parcial', usos: 'Medicos' },
+      'Fr. S. Antarctic Lands': { value: 'Ilegal', usos: 'Ninguno' },
       France: { value: 'Ilegal', usos: 'Ninguno' },
       Gabon: { value: 'Ilegal', usos: 'Ninguno' },
       Gambia: { value: 'Ilegal', usos: 'Ninguno' },
@@ -111,11 +114,13 @@ const Map = () =>{
       Niger: { value: 'Ilegal', usos: 'Ninguno' },
       Nigeria: { value: 'Ilegal', usos: 'Ninguno' },
       Netherlands: { value: 'Parcial', usos: 'Medicos y Recreacional' },
+      'New Caledonia': { value: 'Ilegal', usos: 'Ninguno' },
       'New Zealand': { value: 'Parcial', usos: 'Medicos' },
       Norway: { value: 'Legal', usos: 'Medicos y Recreacional' },
       Oman: { value: 'Ilegal', usos: 'Ninguno' },
       Panama : { value: 'Parcial', usos: 'Medicos' },
       Palestine: { value: 'Ilegal', usos: 'Ninguno' },
+      'Papua New Guinea': { value: 'Ilegal', usos: 'Ninguno' },
       Paraguay: { value: 'Parcial', usos: 'Medicos y Recreacional' },
       Peru: { value: 'Parcial', usos: 'Medicos y Recreacional' },
       Poland: { value: 'Legal', usos: 'Medicos y Recreacional' },
@@ -135,6 +140,7 @@ const Map = () =>{
       Slovenia: { value: 'Legal', usos: 'Medicos y Recreacional' },
       Somalia: { value: 'Ilegal', usos: 'Ninguno' },
       Somaliland: { value: 'Ilegal', usos: 'Ninguno' },
+      'Solomon Is.': { value: 'Ilegal', usos: 'Ninguno' },
       'South Africa': { value: 'Legal', usos: 'Medicos y Recreacional' },
       Sudan: { value: 'Ilegal', usos: 'Ninguno' },
       Suriname: { value: 'Ilegal', usos: 'Ninguno' },
@@ -152,9 +158,13 @@ const Map = () =>{
       'United Kingdom': { value: 'Parcial', usos: 'Medicos' },
       'United States of America': { value: 'Legal', usos: 'Medicos y recreacional' },
       Uruguay: { value: 'Legal', usos: 'Medicos y recreacional' },
+      Vanuatu: { value: 'Parcial', usos: 'Medicos' },
       Venezuela: { value: 'Ilegal', usos: 'Ninguno' },
       'W. Sahara': { value: 'Ilegal', usos: 'Ninguno' },
-      
+      Yemen: { value: 'Ilegal', usos: 'Ninguno' },
+      Zambia: { value: 'Legal', usos: 'Medicos y Recreacional' },
+      Zimbabwe: { value: 'Parcial', usos: 'Medicos' },
+
       Thailand: { value: 'Legal', usos: 'Medicos y recreacional' },
       'South Korea': { value: 'Legal', usos: 'Medicos y recreacional' },
       Japan: { value: 'Legal', usos: 'Medicos y recreacional' },
@@ -207,8 +217,14 @@ const Map = () =>{
   };
 
   const handleMouseMove = (event) => {
-    // Actualiza la posición del cursor en el estado
     setCursorPosition({ x: event.clientX, y: event.clientY });
+
+    // Verificar si la leyenda está cerca del borde y mostrar el scrollbar
+    if (event.clientX > window.innerWidth - 300) {
+      setShowLegendScroll(true);
+    } else {
+      setShowLegendScroll(false);
+    }
   };
 
   function getStatusClass(status) {
@@ -236,7 +252,12 @@ const Map = () =>{
       }}
     >
       {hoveredCountry && (
-        <div style={{ top: `${cursorPosition.y}px`, left: `${cursorPosition.x}px`, color: 'white', position: 'absolute' }}>
+        <div style={{ top: `${cursorPosition.y}px`,
+        left: `${cursorPosition.x}px`,
+        color: "white",
+        position: "absolute",
+        overflowY: showLegendScroll ? "auto" : "hidden", // Habilitar scroll si showLegendScroll es verdadero
+        maxHeight: "60vh" }}>
                  <ul className="list-group">
           <li className="list-group-item">Status</li>
           <li className={`list-group-item ${getStatusClass(data[hoveredCountry]?.value)}`}>
